@@ -135,6 +135,10 @@ export default function App() {
                   src={profilePic}
                   alt="Ethan Go" 
                   className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
+                  style={{
+                    transform: "scale(1.5) translateY(8%)",
+                    transformOrigin: "center center",
+                  }}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80";
@@ -262,7 +266,7 @@ export default function App() {
               
               <div className="flex flex-col gap-10">
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:bg-rose-500 group-hover:text-white border border-rose-100/50 shadow-sm transition-all duration-500">
                     <GraduationCap size={24} />
                   </div>
                   <div>
@@ -273,7 +277,7 @@ export default function App() {
                 </div>
                 
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:bg-rose-500 group-hover:text-white border border-rose-100/50 shadow-sm transition-all duration-500">
                     <GraduationCap size={24} />
                   </div>
                   <div>
@@ -283,7 +287,7 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:bg-rose-500 group-hover:text-white border border-rose-100/50 shadow-sm transition-all duration-500">
                     <GraduationCap size={24} />
                   </div>
                   <div>
@@ -304,7 +308,7 @@ export default function App() {
 
               <div className="flex flex-col gap-10">
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-ghibli-blue/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-blue group-hover:text-white transition-all duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-500 group-hover:text-white border border-sky-100/50 shadow-sm transition-all duration-500">
                     <Code2 size={24} />
                   </div>
                   <div>
@@ -315,7 +319,7 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-ghibli-blue/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-blue group-hover:text-white transition-all duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-500 group-hover:text-white border border-sky-100/50 shadow-sm transition-all duration-500">
                     <Code2 size={24} />
                   </div>
                   <div>
