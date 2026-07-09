@@ -17,7 +17,8 @@ import {
   Sparkles
 } from "lucide-react";
 import { useState } from "react";
-import profilePic from './ethango.jpeg'; // update path if you put it in a subfolder
+import profilePic from './ethan_go.jpg'; // update path if you put it in a subfolder
+
 
 interface Project {
   title: string;
