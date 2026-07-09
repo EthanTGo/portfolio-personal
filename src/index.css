@@ -5,10 +5,10 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", serif;
   
-  --color-ghibli-cream: #fdfcf8;
-  --color-ghibli-pink: #ff99aa;
-  --color-ghibli-blue: #aaccff;
-  --color-ghibli-ink: #223344;
+  --color-ghibli-cream: #ffffff;
+  --color-ghibli-pink: #1a4325;
+  --color-ghibli-blue: #2d6a4f;
+  --color-ghibli-ink: #102a18;
 }
 
 @layer base {

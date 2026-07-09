@@ -100,17 +100,15 @@ export default function App() {
             <div className="flex-1 z-10">
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-px w-8 bg-ghibli-pink" />
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-ghibli-pink">Researcher & Engineer</span>
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-ghibli-pink">Research Assistant @ Northeastern</span>
               </div>
               
-              <h1 className="text-6xl md:text-8xl font-serif font-bold leading-[0.9] mb-8 tracking-tighter">
-                Driven to pursue new frontiers in<br />
-                <span className="italic text-ghibli-blue">causal discovery.</span>
+              <h1 className="text-6xl md:text-8xl font-serif font-bold leading-[0.9] mb-8 tracking-tighter text-ghibli-pink">
+                Hi, I'm Ethan Go.
               </h1>
               
               <p className="text-xl text-ghibli-ink/70 max-w-xl leading-relaxed mb-10 font-light">
-                Specializing in the intersection of <span className="font-medium text-ghibli-ink">machine learning systems and causal inference.</span>
-                Solving complex challenges in economics and population health with a nostalgic touch.
+                I am a <span className="font-medium text-ghibli-ink">Graduate Research Assistant</span> at Northeastern University, working at the intersection of <span className="font-medium text-ghibli-ink">machine learning systems, statistics, and causal inference.</span> Currently pursuing my M.S. in Statistics (Biostatistics), I design computational frameworks and conduct statistical modeling to solve complex challenges in economics, public policy, and public health.
               </p>
               
               <div className="flex flex-wrap gap-6 items-center">
@@ -249,65 +247,80 @@ export default function App() {
           </div>
         </section>
 
-        {/* Background Section */}
+        {/* Education & Experience Section */}
         <section className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="font-serif text-3xl font-bold">Journey</h2>
-            <div className="h-px flex-1 bg-ghibli-ink/10" />
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="flex gap-8 group">
-              <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
-                <GraduationCap size={24} />
+          <div className="grid md:grid-cols-2 gap-16">
+            {/* Education Column */}
+            <div>
+              <div className="flex items-center gap-4 mb-12">
+                <h2 className="font-serif text-3xl font-bold">Education</h2>
+                <div className="h-px flex-1 bg-ghibli-ink/10" />
               </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold mb-1">M.S. in Statistics</h4>
-                <p className="text-sm text-ghibli-ink/60 mb-2">Northeastern University · 2025 — Current</p>
-                <p className="text-sm text-ghibli-ink/40 font-light italic">Specialization in Biostatistics</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-8 group">
-              <div className="w-16 h-16 rounded-2xl bg-ghibli-blue/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-blue group-hover:text-white transition-all duration-500">
-                <Code2 size={24} />
-              </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold mb-1">Software Engineering</h4>
-                <p className="text-sm text-ghibli-ink/60 mb-2">Bloomreach · 2022 - 2025</p>
-                <p className="text-sm text-ghibli-ink/40 font-light italic">Search Quality Team.</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-8 group">
-              <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
-                <GraduationCap size={24} />
-              </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold mb-1">M.S. in Data Analytics</h4>
-                <p className="text-sm text-ghibli-ink/60 mb-2">Boston University · 2020 — 2020</p>
+              
+              <div className="flex flex-col gap-10">
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
+                    <GraduationCap size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl font-bold mb-1">M.S. in Statistics</h4>
+                    <p className="text-sm text-ghibli-ink/60 mb-2">Northeastern University · 2025 — Current</p>
+                    <p className="text-sm text-ghibli-ink/40 font-light italic">Specialization in Biostatistics</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
+                    <GraduationCap size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl font-bold mb-1">M.S. in Data Analytics</h4>
+                    <p className="text-sm text-ghibli-ink/60 mb-2">Boston University · 2020 — 2020</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
+                    <GraduationCap size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl font-bold mb-1">B.A. in Computer Science</h4>
+                    <p className="text-sm text-ghibli-ink/60 mb-2">Boston University · 2017 — 2020</p>
+                    <p className="text-sm text-ghibli-ink/40 font-light italic">Minor in Economics</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="flex gap-8 group">
-              <div className="w-16 h-16 rounded-2xl bg-ghibli-blue/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-blue group-hover:text-white transition-all duration-500">
-                <Code2 size={24} />
+            {/* Experience Column */}
+            <div>
+              <div className="flex items-center gap-4 mb-12">
+                <h2 className="font-serif text-3xl font-bold">Experience</h2>
+                <div className="h-px flex-1 bg-ghibli-ink/10" />
               </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold mb-1">Data Science Intern</h4>
-                <p className="text-sm text-ghibli-ink/60 mb-2">Telenav · Summer 2021</p>
-                <p className="text-sm text-ghibli-ink/40 font-light italic">Mobile App Development</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-8 group">
-              <div className="w-16 h-16 rounded-2xl bg-ghibli-pink/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-pink group-hover:text-white transition-all duration-500">
-                <GraduationCap size={24} />
-              </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold mb-1">B.A. in Computer Science</h4>
-                <p className="text-sm text-ghibli-ink/60 mb-2">Boston University · 2017 — 2020</p>
-                <p className="text-sm text-ghibli-ink/40 font-light italic">Minor in Economics</p>
+
+              <div className="flex flex-col gap-10">
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-ghibli-blue/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-blue group-hover:text-white transition-all duration-500">
+                    <Code2 size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl font-bold mb-1">Software Engineering</h4>
+                    <p className="text-sm text-ghibli-ink/60 mb-2">Bloomreach · 2022 - 2025</p>
+                    <p className="text-sm text-ghibli-ink/40 font-light italic">Search Quality Team.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-ghibli-blue/10 flex items-center justify-center shrink-0 group-hover:bg-ghibli-blue group-hover:text-white transition-all duration-500">
+                    <Code2 size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-xl font-bold mb-1">Data Science Intern</h4>
+                    <p className="text-sm text-ghibli-ink/60 mb-2">Telenav · Summer 2021</p>
+                    <p className="text-sm text-ghibli-ink/40 font-light italic">Mobile App Development</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
