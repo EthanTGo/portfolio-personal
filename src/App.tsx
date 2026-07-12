@@ -17,7 +17,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { useState } from "react";
-import profilePic from './ethan_go.jpg'; // update path if you put it in a subfolder
+import profilePic from "./ethan_go.jpg";
 
 interface Project {
   title: string;
@@ -125,9 +125,6 @@ export default function App() {
                     transformOrigin: "center center",
                   }}
                   referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80";
-                  }}
                 />
                 <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur p-2 rounded-xl shadow-lg">
                   <Sparkles size={16} className="text-ghibli-pink" />
