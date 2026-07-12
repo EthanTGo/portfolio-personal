@@ -17,8 +17,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { useState } from "react";
-import profilePic from './ethan_go.jpg'; // update path if you put it in a subfolder
-
+import profilePic from './ethango.jpeg'; // update path if you put it in a subfolder
 
 interface Project {
   title: string;
@@ -73,22 +72,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-ghibli-cream text-ghibli-ink font-sans selection:bg-ghibli-pink/30">
-      {/* Magazine-style Header */}
-      <nav className="fixed top-0 w-full bg-ghibli-cream/80 backdrop-blur-md border-b border-ghibli-ink/5 z-50 py-4">
-        <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Flower2 className="text-ghibli-pink" size={20} />
-            <span className="font-serif text-2xl font-bold tracking-tight">ETHAN GO</span>
-          </div>
-          <div className="flex gap-8 text-xs font-bold uppercase tracking-widest opacity-60">
-            <a href="#about" className="hover:text-ghibli-pink transition-colors">About</a>
-            <a href="#work" className="hover:text-ghibli-pink transition-colors">Work</a>
-            <a href="#contact" className="hover:text-ghibli-pink transition-colors">Contact</a>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-5xl mx-auto px-6 pt-32 pb-24">
+      <main className="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-24">
         {/* Hero Section - The Tokyoiter Style */}
         <section id="about" className="mb-32 relative">
           
