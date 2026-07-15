@@ -67,6 +67,71 @@ const RESEARCH: Research[] = [
   }
 ];
 
+interface LogoImageProps {
+  srcs: string[];
+  alt: string;
+  fallbackType: 'northeastern' | 'bu' | 'bloomreach' | 'telenav';
+}
+
+function LogoImage({ srcs, alt, fallbackType }: LogoImageProps) {
+  const [imgIndex, setImgIndex] = useState(0);
+  const [hasFailedAll, setHasFailedAll] = useState(false);
+
+  const handleError = () => {
+    if (imgIndex < srcs.length - 1) {
+      setImgIndex(prev => prev + 1);
+    } else {
+      setHasFailedAll(true);
+    }
+  };
+
+  if (hasFailedAll) {
+    if (fallbackType === 'northeastern') {
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-[#C8102E] flex items-center justify-center shrink-0 border border-red-100/10 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
+          <span className="text-white font-serif text-3xl font-black">N</span>
+        </div>
+      );
+    }
+    if (fallbackType === 'bu') {
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-[#CC0000] flex items-center justify-center shrink-0 border border-red-100/10 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
+          <span className="text-white font-sans text-xl font-black italic tracking-tighter">BU</span>
+        </div>
+      );
+    }
+    if (fallbackType === 'bloomreach') {
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-[#F4D03F] flex items-center justify-center shrink-0 border border-yellow-200/10 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
+          <span className="text-black font-sans text-3xl font-black lowercase leading-none pb-1">b</span>
+        </div>
+      );
+    }
+    if (fallbackType === 'telenav') {
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-[#0A0B1A] flex items-center justify-center shrink-0 border border-slate-800 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
+          <div className="flex flex-col items-center justify-center gap-1.5">
+            <span className="text-yellow-400 text-xs leading-none">▲</span>
+            <span className="text-white font-sans text-[8px] font-bold tracking-wider leading-none">TELENAV</span>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  return (
+    <div className="w-16 h-16 rounded-2xl overflow-hidden border border-ghibli-ink/5 bg-white shadow-sm flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-105">
+      <img 
+        src={srcs[imgIndex]} 
+        alt={alt} 
+        className="w-full h-full object-cover" 
+        onError={handleError}
+        referrerPolicy="no-referrer"
+      />
+    </div>
+  );
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<'research' | 'projects'>('research');
 
@@ -248,9 +313,22 @@ export default function App() {
               
               <div className="flex flex-col gap-10">
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:bg-rose-500 group-hover:text-white border border-rose-100/50 shadow-sm transition-all duration-500">
-                    <GraduationCap size={24} />
-                  </div>
+                  <LogoImage 
+                    srcs={[
+                      '/src/northeastern_logo.png', 
+                      '/src/northeastern_logo.jpg', 
+                      '/src/northeastern_logo.jpeg', 
+                      '/src/logo.png', 
+                      '/src/logo.jpg', 
+                      '/src/logo.jpeg', 
+                      '/northeastern_logo.png', 
+                      '/logo.png', 
+                      '/logo.jpg', 
+                      '/logo.jpeg'
+                    ]} 
+                    alt="Northeastern University Logo" 
+                    fallbackType="northeastern" 
+                  />
                   <div>
                     <h4 className="font-serif text-xl font-bold mb-1">M.S. in Statistics</h4>
                     <p className="text-sm text-ghibli-ink/60 mb-2">Northeastern University · 2025 — Current</p>
@@ -259,9 +337,18 @@ export default function App() {
                 </div>
                 
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:bg-rose-500 group-hover:text-white border border-rose-100/50 shadow-sm transition-all duration-500">
-                    <GraduationCap size={24} />
-                  </div>
+                  <LogoImage 
+                    srcs={[
+                      '/src/bu.jpeg', 
+                      '/src/bu.jpg', 
+                      '/src/bu.png', 
+                      '/bu.jpeg', 
+                      '/bu.jpg', 
+                      '/bu.png'
+                    ]} 
+                    alt="Boston University Logo" 
+                    fallbackType="bu" 
+                  />
                   <div>
                     <h4 className="font-serif text-xl font-bold mb-1">M.S. in Data Analytics</h4>
                     <p className="text-sm text-ghibli-ink/60 mb-2">Boston University · 2020 — 2020</p>
@@ -269,9 +356,18 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:bg-rose-500 group-hover:text-white border border-rose-100/50 shadow-sm transition-all duration-500">
-                    <GraduationCap size={24} />
-                  </div>
+                  <LogoImage 
+                    srcs={[
+                      '/src/bu.jpeg', 
+                      '/src/bu.jpg', 
+                      '/src/bu.png', 
+                      '/bu.jpeg', 
+                      '/bu.jpg', 
+                      '/bu.png'
+                    ]} 
+                    alt="Boston University Logo" 
+                    fallbackType="bu" 
+                  />
                   <div>
                     <h4 className="font-serif text-xl font-bold mb-1">B.A. in Computer Science</h4>
                     <p className="text-sm text-ghibli-ink/60 mb-2">Boston University · 2017 — 2020</p>
@@ -290,9 +386,18 @@ export default function App() {
 
               <div className="flex flex-col gap-10">
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-500 group-hover:text-white border border-sky-100/50 shadow-sm transition-all duration-500">
-                    <Code2 size={24} />
-                  </div>
+                  <LogoImage 
+                    srcs={[
+                      '/src/bloomreach_logo.png', 
+                      '/src/bloomreach_logo.jpg', 
+                      '/src/bloomreach_logo.jpeg', 
+                      '/bloomreach_logo.png', 
+                      '/bloomreach_logo.jpg', 
+                      '/bloomreach_logo.jpeg'
+                    ]} 
+                    alt="Bloomreach Logo" 
+                    fallbackType="bloomreach" 
+                  />
                   <div>
                     <h4 className="font-serif text-xl font-bold mb-1">Software Engineering</h4>
                     <p className="text-sm text-ghibli-ink/60 mb-2">Bloomreach · 2022 - 2025</p>
@@ -301,9 +406,18 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-500 group-hover:text-white border border-sky-100/50 shadow-sm transition-all duration-500">
-                    <Code2 size={24} />
-                  </div>
+                  <LogoImage 
+                    srcs={[
+                      '/src/telenav.jpeg', 
+                      '/src/telenav.jpg', 
+                      '/src/telenav.png', 
+                      '/telenav.jpeg', 
+                      '/telenav.jpg', 
+                      '/telenav.png'
+                    ]} 
+                    alt="Telenav Logo" 
+                    fallbackType="telenav" 
+                  />
                   <div>
                     <h4 className="font-serif text-xl font-bold mb-1">Data Science Intern</h4>
                     <p className="text-sm text-ghibli-ink/60 mb-2">Telenav · Summer 2021</p>
