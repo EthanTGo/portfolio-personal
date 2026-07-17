@@ -226,7 +226,7 @@ export default function App() {
             <div className="shrink-0 relative">
               <div className="absolute -inset-4 bg-ghibli-pink/5 rounded-[3rem] rotate-6 -z-10" />
               <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-3 -z-10" />
-              <ProfileImage allowEdit={true} className="w-64 h-80 md:w-72 md:h-96 border-8 border-white shadow-2xl shadow-ghibli-ink/5" />
+              <ProfileImage className="w-64 h-80 md:w-72 md:h-96 border-8 border-white shadow-2xl shadow-ghibli-ink/5" />
             </div>
           </motion.div>
         </section>
