@@ -16,12 +16,11 @@ export default function AboutPage() {
           <div className="absolute -inset-4 bg-ghibli-pink/5 rounded-[3rem] rotate-1 -z-10" />
           <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-1 -z-10" />
           <img 
-            src={`${import.meta.env.BASE_URL}ethango.jpeg`} 
-            alt="Ethan Go with his parents" 
+            src={`${import.meta.env.BASE_URL}img2.JPG`} 
             className="w-full aspect-[4/3] md:aspect-[16/10] object-cover rounded-[2.5rem] border-[10px] border-white shadow-2xl shadow-ghibli-ink/10"
             referrerPolicy="no-referrer"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}ethan_go.jpg`;
+              (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}img2.JPG`;
             }}
           />
         </div>
@@ -56,12 +55,12 @@ export default function AboutPage() {
           <div className="absolute -inset-4 bg-ghibli-pink/5 rounded-[3rem] rotate-1 -z-10" />
           <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-1 -z-10" />
           <img 
-            src={`${import.meta.env.BASE_URL}ethan_go.jpg`} 
+            src={`${import.meta.env.BASE_URL}img3.JPG`} 
             alt="Ethan Go running in the forest with a deer" 
             className="w-full aspect-[4/3] md:aspect-[16/10] object-cover rounded-[2.5rem] border-[10px] border-white shadow-2xl shadow-ghibli-ink/10"
             referrerPolicy="no-referrer"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}ethango.jpeg`;
+              (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}img3.JPG`;
             }}
           />
         </div>
