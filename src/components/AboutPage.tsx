@@ -1,10 +1,6 @@
 import { motion } from "motion/react";
-
-const getAssetUrl = (path: string) => {
-  const base = import.meta.env.BASE_URL || "/";
-  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
-  return `${base}${cleanPath}`;
-};
+import img2 from "../img2.JPG";
+import img3 from "../img3.JPG";
 
 export default function AboutPage() {
   return (
@@ -21,19 +17,11 @@ export default function AboutPage() {
         <div className="relative w-full max-w-3xl flex justify-center">
           <div className="absolute -inset-4 bg-ghibli-pink/5 rounded-[3rem] rotate-1 -z-10" />
           <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-1 -z-10" />
-          <img 
-            src={getAssetUrl("img2.JPG")} 
+          <img
+            src={img2}
             alt="Ethan Go with his parents"
             className="w-full aspect-[4/3] md:aspect-[16/10] object-cover rounded-[2.5rem] border-[10px] border-white shadow-2xl shadow-ghibli-ink/10"
             referrerPolicy="no-referrer"
-            onError={(e) => {
-              const img = e.currentTarget;
-              if (img.src.includes("img2.JPG")) {
-                img.src = getAssetUrl("img2.jpg");
-              } else if (img.src.includes("img2.jpg")) {
-                img.src = getAssetUrl("ethango.jpeg");
-              }
-            }}
           />
         </div>
 
@@ -66,19 +54,11 @@ export default function AboutPage() {
         <div className="relative w-full flex justify-center">
           <div className="absolute -inset-4 bg-ghibli-pink/5 rounded-[3rem] rotate-1 -z-10" />
           <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-1 -z-10" />
-          <img 
-            src={getAssetUrl("img3.JPG")} 
-            alt="Ethan Go running in the forest with a deer" 
+          <img
+            src={img3}
+            alt="Ethan Go running in the forest with a deer"
             className="w-full aspect-[4/3] md:aspect-[16/10] object-cover rounded-[2.5rem] border-[10px] border-white shadow-2xl shadow-ghibli-ink/10"
             referrerPolicy="no-referrer"
-            onError={(e) => {
-              const img = e.currentTarget;
-              if (img.src.includes("img3.JPG")) {
-                img.src = getAssetUrl("img3.jpg");
-              } else if (img.src.includes("img3.jpg")) {
-                img.src = getAssetUrl("ethan_go.jpg");
-              }
-            }}
           />
         </div>
 

@@ -204,7 +204,7 @@ export default function App() {
           >
             <div className="flex-1 z-10">
               <p className="text-xl md:text-2xl text-ghibli-ink/80 max-w-xl leading-relaxed mb-10 font-light pt-4">
-                I am a <span className="font-medium text-ghibli-ink">Graduate Research Assistant</span> at Northeastern University, working at the intersection of <span className="font-medium text-ghibli-ink">machine learning systems, statistics, and causal inference.</span> Currently pursuing my M.S. in Statistics (Biostatistics), I design computational frameworks and conduct statistical modeling to solve complex challenges in economics, public policy, and public health.
+                I am a <span className="font-medium text-ghibli-ink">Graduate Research Assistant</span> at Northeastern University, working at the intersection of <span className="font-medium text-ghibli-ink">machine learning systems, statistics, and causal inference.</span> Currently pursuing my M.S. in Statistics (Biostatistics), I design computational frameworks and conduct statistical modeling to solve complex challenges in public health, public policy, and economics.
               </p>
               
               <div className="flex flex-wrap gap-6 items-center">
