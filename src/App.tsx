@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   Github, 
   Linkedin, 
@@ -17,7 +17,8 @@ import {
   Sparkles
 } from "lucide-react";
 import { useState } from "react";
-import profilePic from "./ethan_go.jpg";
+import AboutPage from "./components/AboutPage";
+import ProfileImage from "./components/ProfileImage";
 
 interface Project {
   title: string;
@@ -133,13 +134,67 @@ function LogoImage({ srcs, alt, fallbackType }: LogoImageProps) {
 }
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<'portfolio' | 'about'>('portfolio');
   const [activeTab, setActiveTab] = useState<'research' | 'projects'>('research');
 
   return (
-    <div className="min-h-screen bg-ghibli-cream text-ghibli-ink font-sans selection:bg-ghibli-pink/30">
-      <main className="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-24">
-        {/* Hero Section - The Tokyoiter Style */}
-        <section id="about" className="mb-32 relative">
+    <div className="min-h-screen bg-ghibli-cream text-ghibli-ink font-sans selection:bg-ghibli-pink/30 flex flex-col">
+      {/* Sticky Navigation Header */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-ghibli-ink/5 py-4 px-6">
+        <div className="max-w-5xl mx-auto flex justify-between items-center">
+          <button 
+            onClick={() => {
+              setCurrentPage('portfolio');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="font-serif text-2xl font-bold text-ghibli-pink hover:opacity-80 transition-opacity flex items-center gap-2"
+          >
+            <Flower2 className="text-ghibli-pink" size={20} />
+            <span className="tracking-tight text-ghibli-ink font-bold">Ethan Go</span>
+          </button>
+          
+          <nav className="flex gap-8">
+            <button 
+              onClick={() => {
+                setCurrentPage('portfolio');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${currentPage === 'portfolio' ? 'text-ghibli-pink font-extrabold' : 'text-ghibli-ink/50 hover:text-ghibli-ink'}`}
+            >
+              Portfolio
+              {currentPage === 'portfolio' && (
+                <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-ghibli-pink" />
+              )}
+            </button>
+            <button 
+              onClick={() => {
+                setCurrentPage('about');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${currentPage === 'about' ? 'text-ghibli-pink font-extrabold' : 'text-ghibli-ink/50 hover:text-ghibli-ink'}`}
+            >
+              About Me
+              {currentPage === 'about' && (
+                <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-ghibli-pink" />
+              )}
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-24 flex-1 w-full">
+        <AnimatePresence mode="wait">
+          {currentPage === 'portfolio' ? (
+            <motion.div
+              key="portfolio-page"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="space-y-32"
+            >
+              {/* Hero Section - The Tokyoiter Style */}
+              <section id="about" className="mb-32 relative">
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -148,16 +203,7 @@ export default function App() {
             className="flex flex-col md:flex-row gap-16 items-center md:items-start"
           >
             <div className="flex-1 z-10">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="h-px w-8 bg-ghibli-pink" />
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-ghibli-pink">Research Assistant @ Northeastern</span>
-              </div>
-              
-              <h1 className="text-6xl md:text-8xl font-serif font-bold leading-[0.9] mb-8 tracking-tighter text-ghibli-pink">
-                Hi, I'm Ethan Go.
-              </h1>
-              
-              <p className="text-xl text-ghibli-ink/70 max-w-xl leading-relaxed mb-10 font-light">
+              <p className="text-xl md:text-2xl text-ghibli-ink/80 max-w-xl leading-relaxed mb-10 font-light pt-4">
                 I am a <span className="font-medium text-ghibli-ink">Graduate Research Assistant</span> at Northeastern University, working at the intersection of <span className="font-medium text-ghibli-ink">machine learning systems, statistics, and causal inference.</span> Currently pursuing my M.S. in Statistics (Biostatistics), I design computational frameworks and conduct statistical modeling to solve complex challenges in economics, public policy, and public health.
               </p>
               
@@ -180,21 +226,7 @@ export default function App() {
             <div className="shrink-0 relative">
               <div className="absolute -inset-4 bg-ghibli-pink/5 rounded-[3rem] rotate-6 -z-10" />
               <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-3 -z-10" />
-              <div className="w-64 h-80 md:w-72 md:h-96 rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl shadow-ghibli-ink/5 relative group">
-                <img 
-                  src={profilePic}
-                  alt="Ethan Go" 
-                  className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
-                  style={{
-                    transform: "scale(1.5) translateY(8%)",
-                    transformOrigin: "center center",
-                  }}
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur p-2 rounded-xl shadow-lg">
-                  <Sparkles size={16} className="text-ghibli-pink" />
-                </div>
-              </div>
+              <ProfileImage allowEdit={true} className="w-64 h-80 md:w-72 md:h-96 border-8 border-white shadow-2xl shadow-ghibli-ink/5" />
             </div>
           </motion.div>
         </section>
@@ -428,9 +460,14 @@ export default function App() {
             </div>
           </div>
         </section>
+            </motion.div>
+          ) : (
+            <AboutPage key="about-page" />
+          )}
+        </AnimatePresence>
 
         {/* Footer */}
-        <footer id="contact" className="pt-16 border-t border-ghibli-ink/5">
+        <footer id="contact" className="pt-16 border-t border-ghibli-ink/5 mt-32">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-2">
               <Flower2 className="text-ghibli-pink" size={16} />
