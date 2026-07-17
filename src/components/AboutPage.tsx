@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
-import img2 from "../img2.JPG";
-import img3 from "../img3.JPG";
+import img2 from "../img2.jpeg";
+import img3 from "../img3.jpeg";
 
 export default function AboutPage() {
   return (
@@ -19,7 +19,6 @@ export default function AboutPage() {
           <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-1 -z-10" />
           <img
             src={img2}
-            alt="Ethan Go with his parents"
             className="w-full aspect-[4/3] md:aspect-[16/10] object-cover rounded-[2.5rem] border-[10px] border-white shadow-2xl shadow-ghibli-ink/10"
             referrerPolicy="no-referrer"
           />
@@ -56,7 +55,6 @@ export default function AboutPage() {
           <div className="absolute -inset-4 bg-ghibli-blue/5 rounded-[3rem] -rotate-1 -z-10" />
           <img
             src={img3}
-            alt="Ethan Go running in the forest with a deer"
             className="w-full aspect-[4/3] md:aspect-[16/10] object-cover rounded-[2.5rem] border-[10px] border-white shadow-2xl shadow-ghibli-ink/10"
             referrerPolicy="no-referrer"
           />
