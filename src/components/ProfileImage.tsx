@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Sparkles } from "lucide-react";
+import { MapleLeafIcon } from "./AutumnLeaves";
 
 interface ProfileImageProps {
   className?: string;
@@ -43,8 +43,8 @@ export default function ProfileImage({ className = "" }: ProfileImageProps) {
 
   return (
     <div className={`relative group ${className}`}>
-      {/* Main image container */}
-      <div className="w-full h-full rounded-[2.5rem] overflow-hidden bg-slate-100 relative shadow-inner">
+      {/* Main image container with warm autumn shadow */}
+      <div className="w-full h-full rounded-[2.5rem] overflow-hidden bg-amber-50/40 relative shadow-inner">
         <img 
           src={resolveUrl(imgSrc || "https://github.com/EthanTGo.png")} 
           alt="Ethan Go" 
@@ -53,9 +53,9 @@ export default function ProfileImage({ className = "" }: ProfileImageProps) {
           referrerPolicy="no-referrer"
         />
 
-        {/* Decorative Corner Sparkle */}
-        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur p-2 rounded-xl shadow-lg pointer-events-none">
-          <Sparkles size={16} className="text-ghibli-pink" />
+        {/* Decorative Corner Autumn Leaf Badge */}
+        <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md p-2.5 rounded-2xl shadow-lg border border-amber-200/60 pointer-events-none transition-transform group-hover:scale-110 duration-300">
+          <MapleLeafIcon size={18} color="#C0392B" className="drop-shadow-sm" />
         </div>
       </div>
     </div>

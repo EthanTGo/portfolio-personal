@@ -1,20 +1,84 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", serif;
   
-  --color-ghibli-cream: #ffffff;
-  --color-ghibli-pink: #1a4325;
-  --color-ghibli-blue: #2d6a4f;
-  --color-ghibli-ink: #102a18;
+  /* Fall Theme Palette */
+  --color-fall-cream: #FCFAF6;        /* Bright, warm ivory canvas - keep cover bright & easy to read */
+  --color-fall-card: #FFFFFF;         /* Crisp white surfaces */
+  --color-fall-ink: #2A1A12;          /* Rich espresso timber text for ultra-clear contrast */
+  --color-fall-muted: #6E5343;        /* Warm secondary autumn text */
+  --color-fall-red: #C0392B;          /* Crimson maple red */
+  --color-fall-crimson: #991B1B;      /* Deep autumn crimson */
+  --color-fall-orange: #D96B27;       /* Warm burnt orange / amber */
+  --color-fall-amber: #E67E22;        /* Vibrant warm pumpkin amber */
+  --color-fall-yellow: #E5A124;       /* Golden harvest yellow */
+  --color-fall-gold: #F59E0B;         /* Bright autumn foliage gold */
+  --color-fall-ochre: #B45309;        /* Warm cinnamon ochre */
+
+  /* Aliased tokens for compatibility */
+  --color-ghibli-cream: #FCFAF6;
+  --color-ghibli-pink: #C0392B;       /* Vibrant maple red accent */
+  --color-ghibli-blue: #D96B27;       /* Warm burnt orange accent */
+  --color-ghibli-ink: #2A1A12;        /* High-contrast espresso text */
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-ghibli-cream);
-    color: var(--color-ghibli-ink);
+    background-color: var(--color-fall-cream);
+    color: var(--color-fall-ink);
+  }
+}
+
+/* Autumn Falling Leaves Animation System */
+@keyframes leafFall {
+  0% {
+    top: -70px;
+    opacity: 0;
+  }
+  6% {
+    opacity: var(--leaf-opacity, 0.7);
+  }
+  88% {
+    opacity: var(--leaf-opacity, 0.7);
+  }
+  100% {
+    top: calc(100vh + 80px);
+    opacity: 0;
+  }
+}
+
+@keyframes leafSway {
+  0%, 100% {
+    transform: translateX(0px) rotate(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translateX(calc(var(--sway-x, 35px) * -1)) rotate(calc(var(--sway-deg, 25deg) * -1)) rotateY(35deg);
+  }
+  50% {
+    transform: translateX(calc(var(--sway-x, 35px) * 0.4)) rotate(calc(var(--sway-deg, 25deg) * 0.6)) rotateY(70deg);
+  }
+  75% {
+    transform: translateX(var(--sway-x, 35px)) rotate(var(--sway-deg, 25deg)) rotateY(140deg);
+  }
+}
+
+.animate-leaf-fall {
+  animation: leafFall var(--fall-duration, 16s) linear infinite;
+  animation-delay: var(--fall-delay, 0s);
+}
+
+.animate-leaf-sway {
+  animation: leafSway var(--sway-duration, 4.5s) ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-leaf-fall,
+  .animate-leaf-sway {
+    animation: none !important;
   }
 }
