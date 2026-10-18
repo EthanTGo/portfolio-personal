@@ -288,12 +288,12 @@ export default function App() {
                 </motion.div>
               </section>
 
-              {/* Selected Works Section */}
+              {/* Past Works Section */}
               <section id="work" className="mb-32">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-14">
                   <div className="flex items-center gap-3">
                     <MapleLeafIcon size={28} color="#C0392B" className="shrink-0" />
-                    <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#1F110B]">Selected Works</h2>
+                    <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#1F110B]">Past Works</h2>
                   </div>
 
                   {/* Filter tabs styled with warm autumn accents */}
