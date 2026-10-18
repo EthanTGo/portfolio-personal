@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import AboutPage from "./components/AboutPage";
+import ResearchInterestsPage from "./components/ResearchInterestsPage";
 import ProfileImage from "./components/ProfileImage";
 import { MapleLeafIcon, OakLeafIcon, GinkgoLeafIcon } from "./components/AutumnLeaves";
 import FallBackground from "./components/FallBackground";
@@ -139,7 +140,7 @@ const TAG_FALL_STYLES = [
 ];
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'portfolio' | 'about'>('portfolio');
+  const [currentPage, setCurrentPage] = useState<'portfolio' | 'research' | 'about'>('portfolio');
   const [activeTab, setActiveTab] = useState<'research' | 'projects'>('research');
 
   return (
@@ -155,7 +156,7 @@ export default function App() {
               setCurrentPage('portfolio');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="font-serif text-2xl font-bold text-[#C0392B] hover:opacity-85 transition-opacity flex items-center gap-2 group text-left"
+            className="font-serif text-2xl font-bold text-[#C0392B] hover:opacity-85 transition-opacity flex items-center gap-2 group text-left cursor-pointer"
           >
             <div 
               className="p-1 rounded-lg bg-red-100/60 text-[#C0392B] group-hover:rotate-12 transition-transform duration-300"
@@ -165,13 +166,13 @@ export default function App() {
             <span className="tracking-tight text-[#2A1A12] font-bold">Ethan Go</span>
           </button>
           
-          <nav className="flex gap-6 sm:gap-8">
+          <nav className="flex gap-4 sm:gap-8 items-center">
             <button 
               onClick={() => {
                 setCurrentPage('portfolio');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${currentPage === 'portfolio' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 cursor-pointer ${currentPage === 'portfolio' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
             >
               Portfolio
               {currentPage === 'portfolio' && (
@@ -180,10 +181,22 @@ export default function App() {
             </button>
             <button 
               onClick={() => {
+                setCurrentPage('research');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 cursor-pointer ${currentPage === 'research' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
+            >
+              Research Interests
+              {currentPage === 'research' && (
+                <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C0392B] via-[#D96B27] to-[#E5A124]" />
+              )}
+            </button>
+            <button 
+              onClick={() => {
                 setCurrentPage('about');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 ${currentPage === 'about' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 cursor-pointer ${currentPage === 'about' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
             >
               About Me
               {currentPage === 'about' && (
@@ -248,13 +261,19 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Autumn feature highlight note */}
-                    <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-amber-50/70 border border-amber-200/60 text-xs text-[#5C3D2E]">
-                      <span className="p-1 rounded-full bg-red-100 text-[#C0392B]">
+                    {/* Autumn feature highlight note & link to Research Interests */}
+                    <button
+                      onClick={() => {
+                        setCurrentPage('research');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-amber-50/80 hover:bg-amber-100/90 border border-amber-200/70 hover:border-amber-400 text-xs text-[#5C3D2E] transition-all cursor-pointer group text-left shadow-2xs"
+                    >
+                      <span className="p-1 rounded-full bg-red-100 text-[#C0392B] group-hover:rotate-12 transition-transform">
                         <MapleLeafIcon size={12} color="#C0392B" />
                       </span>
-                      <span>Explore research & projects across the site.</span>
-                    </div>
+                      <span>Explore my core <strong className="font-bold text-[#1F110B] underline decoration-amber-400">Research Interests</strong> & causal inference agenda →</span>
+                    </button>
                   </div>
 
                   {/* Profile Portrait Framed by Background Autumn Foliage & Hanko Stamp */}
@@ -527,12 +546,14 @@ export default function App() {
                 </div>
               </section>
             </motion.div>
+          ) : currentPage === 'research' ? (
+            <ResearchInterestsPage key="research-page" />
           ) : (
             <AboutPage key="about-page" />
           )}
         </AnimatePresence>
 
-        {/* Footer with Autumn Motif */}
+        {/* Footer with Autumn Motif and Quick Navigation */}
         <footer id="contact" className="pt-16 border-t border-amber-900/10 mt-32">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
@@ -541,13 +562,36 @@ export default function App() {
                 © 2026 Ethan Go · Autumn Edition
               </p>
             </div>
-            <div className="flex items-center gap-4 text-xs font-medium text-[#7D5B49]">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-red-600 inline-block" />
-                <span className="w-2 h-2 rounded-full bg-orange-500 inline-block" />
-                <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
-                Fall Colors Active
-              </span>
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-bold uppercase tracking-wider text-[#7D5B49]">
+              <button 
+                onClick={() => {
+                  setCurrentPage('portfolio');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className={`hover:text-[#C0392B] transition-colors cursor-pointer ${currentPage === 'portfolio' ? 'text-[#C0392B]' : ''}`}
+              >
+                Portfolio
+              </button>
+              <span className="text-amber-300">·</span>
+              <button 
+                onClick={() => {
+                  setCurrentPage('research');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className={`hover:text-[#C0392B] transition-colors cursor-pointer ${currentPage === 'research' ? 'text-[#C0392B]' : ''}`}
+              >
+                Research Interests
+              </button>
+              <span className="text-amber-300">·</span>
+              <button 
+                onClick={() => {
+                  setCurrentPage('about');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className={`hover:text-[#C0392B] transition-colors cursor-pointer ${currentPage === 'about' ? 'text-[#C0392B]' : ''}`}
+              >
+                About Me
+              </button>
             </div>
           </div>
         </footer>
