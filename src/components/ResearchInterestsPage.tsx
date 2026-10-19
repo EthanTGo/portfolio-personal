@@ -22,50 +22,29 @@ export default function ResearchInterestsPage() {
         {/* Area 1: Causal Inference & Policy Simulation */}
         <div className="space-y-4">
           <h3 className="font-serif text-2xl font-bold text-[#1F110B]">
-            Causal Inference & Policy Simulation
+            Causal Inference in settings where assumptions are violated.
           </h3>
           <p className="text-lg leading-relaxed text-[#3D281E]">
-            A core part of my recent research examines how algorithmic valuation uncertainty affects policy simulations. In my working paper,{" "}
-            <a
-              href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6862558"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-red-700 hover:text-orange-700 underline decoration-amber-400 font-medium inline-flex items-center gap-1 transition-colors"
-            >
-              Does the Model Matter? A Sensitivity Analysis of Valuation Uncertainty in Land Value Tax Simulation
-              <ExternalLink size={14} className="inline shrink-0" />
-            </a>
-            , I trained several statistical algorithms to predict assessed property values in Cook County and analyzed what happens when shifting from a unified tax system to a land value tax system. The goal was to evaluate how sensitive economic and policy simulations are to the variance and specifications of underlying machine learning models.
+          My main research interest is working with areas of causal inference in which the assumptions may be violated.
           </p>
         </div>
 
-        {/* Area 2: Biostatistics & Health Data */}
+        {/* Area 2: Causal Inference */}
         <div className="space-y-4 pt-4">
           <h3 className="font-serif text-2xl font-bold text-[#1F110B]">
-            Biostatistics & Health Data
+            Managing and Solutions to Missing Data
           </h3>
           <p className="text-lg leading-relaxed text-[#3D281E]">
-            Through my graduate studies at Northeastern University, I am deeply interested in applying statistics to public health and biomedical data. I am drawn to survival analysis, longitudinal observational studies, and causal estimation methods that account for unmeasured confounding and treatment-selection bias, aiming to produce dependable evidence from complex clinical records.
+             
           </p>
         </div>
 
-        {/* Area 3: Large-Scale Systems & Anomaly Detection */}
+        {/* Area 3: ML + Causal Inference */}
         <div className="space-y-4 pt-4">
           <h3 className="font-serif text-2xl font-bold text-[#1F110B]">
-            Large-Scale Systems & Anomaly Detection
+            Other interests: longitudinal data analysis, survival analysis, causal machine learning, and mediation analysis. 
           </h3>
           <p className="text-lg leading-relaxed text-[#3D281E]">
-            With a background in computer science and software engineering at Bloomreach, I also enjoy building systems capable of processing high-velocity continuous data. In an earlier paper for the ACM DEBS Grand Challenge (
-            <a
-              href="https://dl.acm.org/doi/10.1145/3401025.3401758"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-red-700 hover:text-orange-700 underline decoration-amber-400 font-medium inline-flex items-center gap-1 transition-colors"
-            >
-              Anomaly Detection for NILM Task with Apache Flink
-              <ExternalLink size={14} className="inline shrink-0" />
-            </a>
-            ), my co-author and I designed a streaming architecture using Apache Flink and density-based clustering (DBSCAN) to identify anomalies in high-frequency smart meter energy data in real time.
           </p>
         </div>
       </section>
