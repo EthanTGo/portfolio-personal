@@ -301,7 +301,7 @@ export default function App() {
                     {/* Bio Narrative */}
                     <div className="space-y-4 text-base sm:text-lg text-[#3D281E] font-normal leading-relaxed pt-2 text-justify">
                       <p>
-                        I am a <strong className="font-semibold text-[#1F110B]">Graduate Research Assistant</strong> in the Bouvé College of Health Sciences at Northeastern University, supervised by Professor Matthew Miller and Professor Louisa Smith. My research focuses on causal inference, synthetic control methods, and missing data in evaluations of firearm violence policy in epidemiology and public health. I am pursuing an M.S. in Statistics with a concentration in Biostatistics (expected May 2027).
+                        I am a <strong className="font-semibold text-[#1F110B]">Graduate Research Assistant</strong> in the Bouvé College of Health Sciences at Northeastern University, supervised by Professor Matthew Miller and Professor Louisa Smith. My research focuses on causal inference, synthetic control methods, and missing data in evaluations of firearm violence policy. I am pursuing an M.S. in Statistics with a concentration in Biostatistics (expected May 2027).
                       </p>
                       <p>
                         Previously, I was a Software Engineer at Bloomreach on the search quality team working on distributed semantic search systems. I completed my M.S. in Applied Data Analytics and B.A. in Computer Science (minor in Economics) at Boston University.
