@@ -341,7 +341,7 @@ export default function App() {
                   {/* Area 2 */}
                   <div className="space-y-2 pt-2">
                     <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1F110B]">
-                      Managing and Solutions to Missing Data
+                      Issues with Missing Data
                     </h3>
                     <p className="text-base sm:text-lg leading-relaxed text-[#3D281E] text-justify">
                       Investigating statistical methodologies, imputation strategies, and robust estimators to handle complex missing data mechanisms in observational and longitudinal biomedical studies.
