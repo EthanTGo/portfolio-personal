@@ -49,12 +49,12 @@ const PROJECTS: Project[] = [
 
 const RESEARCH: Research[] = [
   {
-    title: "Does the Model Matter? A Sensitivity Analysis of Valuation Uncertainty in Land Value Tax Simulation",
+    title: "Same Data, Different Winners: Valuation Model Uncertainty Sensitivity Analysis",
     authors: "Ethan Go",
     venue: "SSRN pre-print",
     year: "2026",
     abstract: "This paper trains several statistical algorithms to predict assessed values of properties in Cook County, performing a sensitivity analysis of shifting from a unified tax system to a land value system, given the predictions of the model.",
-    link: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6862558"
+    link: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7474498"
   },
   {
     title: "Grand Challenge: Anomaly Detection for NILM Task with Apache Flink",
