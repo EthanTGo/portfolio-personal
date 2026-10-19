@@ -139,7 +139,6 @@ async function generatePDF() {
   drawText("Boston University, Boston, MA | M.S. Applied Data Analytics", marginX, currentY, { font: fontBold, size: 9.5 });
   drawText("May 2022", width - marginX - 45, currentY, { font: fontBold, size: 9.5 });
   currentY -= 12;
-  drawBulletPoint("Cumulative GPA: 3.79");
   drawBulletPoint("Relevant Coursework: Machine Learning, Deep Learning, Big Data Management");
 
   currentY -= 4;

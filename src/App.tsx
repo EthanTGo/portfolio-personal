@@ -9,67 +9,69 @@ import {
   Linkedin, 
   Mail, 
   ExternalLink, 
-  Globe
+  FileText
 } from "lucide-react";
 import { useState } from "react";
-import AboutPage from "./components/AboutPage";
-import ResearchInterestsPage from "./components/ResearchInterestsPage";
 import ProfileImage from "./components/ProfileImage";
-import { MapleLeafIcon, OakLeafIcon, GinkgoLeafIcon } from "./components/AutumnLeaves";
-import FallBackground from "./components/FallBackground";
+import BudsLabLogo from "./components/BudsLabLogo";
 
-interface Project {
+interface Publication {
   title: string;
-  description: string;
-  tags: string[];
-  link?: string;
-  github?: string;
-  image: string;
-}
-
-interface Research {
-  title: string;
-  authors: string;
+  authorsPrefix: string;
+  boldName: string;
+  authorsSuffix: string;
   venue: string;
   year: string;
   abstract: string;
-  link?: string;
-  pdf?: string;
+  link: string;
+  linkText: string;
 }
 
-const PROJECTS: Project[] = [
-  {
-    title: "Collab^2",
-    description: "A collaborative code sharing platform allowing instructors and students to either create or join real-time workspaces with instant syntax synchronization.",
-    tags: ["jQuery", "Materialize", "SQL", "CodeMirror"],
-    github: "https://github.com/EthanTGo/Collab2",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQZzr7b7WRWg3vQF6x6iRMhlCh03ZZpgfnlg&s"
-  }
-];
-
-const RESEARCH: Research[] = [
+const PUBLICATIONS: Publication[] = [
   {
     title: "Same Data, Different Winners: Valuation Model Uncertainty Sensitivity Analysis",
-    authors: "Ethan Go",
+    authorsPrefix: "",
+    boldName: "Ethan Go",
+    authorsSuffix: "",
     venue: "SSRN pre-print",
     year: "2026",
-    abstract: "This paper trains several statistical algorithms to predict assessed values of properties in Cook County, performing a sensitivity analysis of shifting from a unified tax system to a land value system, given the predictions of the model.",
-    link: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7474498"
+    abstract: "Trains several statistical algorithms to predict assessed values of properties in Cook County, performing a sensitivity analysis of shifting from a unified tax system to a land value tax system given model predictions.",
+    link: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7474498",
+    linkText: "SSRN Pre-print"
   },
   {
     title: "Grand Challenge: Anomaly Detection for NILM Task with Apache Flink",
-    authors: "Zongshun Zhang, Ethan Go",
-    venue: "ACM",
+    authorsPrefix: "Zongshun Zhang, ",
+    boldName: "Ethan Timoteo Go",
+    authorsSuffix: "",
+    venue: "ACM International Conference on Distributed and Event-based Systems (DEBS)",
     year: "2020",
-    abstract: "This paper describes our solution based on Apache Flink, a stream processing framework, and the DBSCAN density based clustering algorithm for anomaly detection through the context of data provided by DEBS Grand Challenge.",
-    link: "https://dl.acm.org/doi/10.1145/3401025.3401758"
+    abstract: "A stream-processing solution based on Apache Flink and the DBSCAN density-based clustering algorithm for real-time anomaly detection in high-frequency smart meter power consumption data.",
+    link: "https://dl.acm.org/doi/10.1145/3401025.3401758",
+    linkText: "ACM Digital Library"
   }
 ];
+
+function ScholarIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z" />
+    </svg>
+  );
+}
+
+function OrcidIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 256 256" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm-38.4 186.7H67.2V78.2h22.4v108.5zm-11.2-123c-7.2 0-13-5.8-13-13s5.8-13 13-13 13 5.8 13 13-5.8 13-13 13zm117.3 75.3c-2.3 8.8-6.7 16.5-13.1 22.8-6.4 6.3-14.3 11-23.7 14.1-9.4 3.1-20 4.6-31.8 4.6h-37.4V78.2h40.4c11.3 0 21.3 1.6 30 4.7 8.7 3.1 16 7.6 21.9 13.5 5.9 5.9 10.3 13.1 13.1 21.5 2.8 8.4 4.3 17.6 4.3 27.6-.1 13.3-1.3 24.8-3.7 33.5zm-22.7-47.5c-1.9-6-5-10.8-9.3-14.4-4.3-3.6-9.9-5.4-16.7-5.4h-17.7v78.7h16.2c7.6 0 13.8-1.9 18.5-5.8 4.8-3.9 8-9.1 9.8-15.6 1.8-6.5 2.6-14.5 2.6-24 0-5.8-.8-10.3-1.6-13.5z" />
+    </svg>
+  );
+}
 
 interface LogoImageProps {
   srcs: string[];
   alt: string;
-  fallbackType: 'northeastern' | 'bu' | 'bloomreach' | 'telenav';
+  fallbackType: 'northeastern' | 'bu' | 'bloomreach' | 'telenav' | 'buds' | 'nus';
 }
 
 function LogoImage({ srcs, alt, fallbackType }: LogoImageProps) {
@@ -84,42 +86,57 @@ function LogoImage({ srcs, alt, fallbackType }: LogoImageProps) {
     }
   };
 
+  if (fallbackType === 'buds') {
+    return (
+      <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shrink-0 border border-amber-900/10 shadow-xs select-none p-1 overflow-hidden">
+        <BudsLabLogo className="w-full h-auto object-contain" />
+      </div>
+    );
+  }
+
   if (hasFailedAll) {
     if (fallbackType === 'northeastern') {
       return (
-        <div className="w-16 h-16 rounded-2xl bg-[#C8102E] flex items-center justify-center shrink-0 border border-red-200/30 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
-          <span className="text-white font-serif text-3xl font-black">N</span>
+        <div className="w-12 h-12 rounded-xl bg-[#C8102E] flex items-center justify-center shrink-0 border border-red-200/30 shadow-xs select-none">
+          <span className="text-white font-serif text-xl font-black">N</span>
         </div>
       );
     }
     if (fallbackType === 'bu') {
       return (
-        <div className="w-16 h-16 rounded-2xl bg-[#CC0000] flex items-center justify-center shrink-0 border border-red-200/30 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
-          <span className="text-white font-sans text-xl font-black italic tracking-tighter">BU</span>
+        <div className="w-12 h-12 rounded-xl bg-[#CC0000] flex items-center justify-center shrink-0 border border-red-200/30 shadow-xs select-none">
+          <span className="text-white font-sans text-base font-black italic tracking-tighter">BU</span>
         </div>
       );
     }
     if (fallbackType === 'bloomreach') {
       return (
-        <div className="w-16 h-16 rounded-2xl bg-[#F4D03F] flex items-center justify-center shrink-0 border border-amber-300/40 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
-          <span className="text-stone-900 font-sans text-3xl font-black lowercase leading-none pb-1">b</span>
+        <div className="w-12 h-12 rounded-xl bg-[#F4D03F] flex items-center justify-center shrink-0 border border-amber-300/40 shadow-xs select-none">
+          <span className="text-stone-900 font-sans text-xl font-black lowercase leading-none pb-0.5">b</span>
         </div>
       );
     }
     if (fallbackType === 'telenav') {
       return (
-        <div className="w-16 h-16 rounded-2xl bg-[#0A0B1A] flex items-center justify-center shrink-0 border border-stone-800 shadow-sm overflow-hidden select-none transition-all duration-500 group-hover:scale-105">
-          <div className="flex flex-col items-center justify-center gap-1.5">
-            <span className="text-amber-400 text-xs leading-none">▲</span>
-            <span className="text-white font-sans text-[8px] font-bold tracking-wider leading-none">TELENAV</span>
+        <div className="w-12 h-12 rounded-xl bg-[#0A0B1A] flex items-center justify-center shrink-0 border border-stone-800 shadow-xs select-none">
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-amber-400 text-[9px] leading-none">▲</span>
+            <span className="text-white font-sans text-[6px] font-bold tracking-wider leading-none">TELENAV</span>
           </div>
+        </div>
+      );
+    }
+    if (fallbackType === 'nus') {
+      return (
+        <div className="w-12 h-12 rounded-xl bg-[#003D7C] flex items-center justify-center shrink-0 border border-blue-900/30 shadow-xs select-none">
+          <span className="text-white font-sans text-xs font-black tracking-tight">NUS</span>
         </div>
       );
     }
   }
 
   return (
-    <div className="w-16 h-16 rounded-2xl overflow-hidden border border-amber-900/10 bg-white shadow-sm flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-105">
+    <div className="w-12 h-12 rounded-xl overflow-hidden border border-amber-900/10 bg-white shadow-xs flex items-center justify-center shrink-0">
       <img 
         src={srcs[imgIndex]} 
         alt={alt} 
@@ -131,467 +148,599 @@ function LogoImage({ srcs, alt, fallbackType }: LogoImageProps) {
   );
 }
 
-// Autumn tags color helper
-const TAG_FALL_STYLES = [
-  "bg-amber-100/90 text-amber-950 border border-amber-300/70",
-  "bg-orange-100/90 text-orange-950 border border-orange-300/70",
-  "bg-red-100/90 text-red-950 border border-red-300/70",
-  "bg-yellow-100/90 text-yellow-950 border border-yellow-300/70",
-];
-
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'portfolio' | 'research' | 'about'>('portfolio');
-  const [activeTab, setActiveTab] = useState<'research' | 'projects'>('research');
+  const [currentPage, setCurrentPage] = useState<'about-research' | 'publications-biography'>('about-research');
+
+  const switchPage = (page: 'about-research' | 'publications-biography') => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-[#FCFAF6] text-[#2A1A12] font-sans selection:bg-orange-200 selection:text-red-950 flex flex-col relative overflow-x-hidden">
-      {/* Autumn Trees Background: Top canopy with vibrant watercolor fall foliage */}
-      <FallBackground style="watercolor" />
-
-      {/* Sticky Navigation Header with Fall Accents */}
-      <header className="sticky top-0 z-50 bg-[#FCFAF6]/90 backdrop-blur-md border-b border-amber-900/10 py-4 px-6">
-        <div className="max-w-5xl mx-auto flex justify-between items-center gap-4">
+      {/* Sticky Academic Header Navigation (Clean typography, no leaf icons) */}
+      <header className="sticky top-0 z-50 bg-[#FCFAF6]/95 backdrop-blur-md border-b border-amber-900/10 py-4 px-6">
+        <div className="max-w-4xl mx-auto flex justify-between items-center gap-4">
           <button 
-            onClick={() => {
-              setCurrentPage('portfolio');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="font-serif text-2xl font-bold text-[#C0392B] hover:opacity-85 transition-opacity flex items-center gap-2 group text-left cursor-pointer"
+            onClick={() => switchPage('about-research')}
+            className="font-serif text-2xl font-bold tracking-tight text-[#1F110B] hover:text-[#C0392B] transition-colors text-left cursor-pointer"
           >
-            <div 
-              className="p-1 rounded-lg bg-red-100/60 text-[#C0392B] group-hover:rotate-12 transition-transform duration-300"
-            >
-              <MapleLeafIcon size={20} color="#C0392B" />
-            </div>
-            <span className="tracking-tight text-[#2A1A12] font-bold">Ethan Go</span>
+            Ethan Go
           </button>
           
-          <nav className="flex gap-4 sm:gap-8 items-center">
+          <nav className="flex gap-4 sm:gap-8 items-center text-xs font-bold uppercase tracking-wider">
             <button 
-              onClick={() => {
-                setCurrentPage('portfolio');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 cursor-pointer ${currentPage === 'portfolio' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
+              onClick={() => switchPage('about-research')}
+              className={`transition-all py-1 relative cursor-pointer ${currentPage === 'about-research' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
             >
-              Portfolio
-              {currentPage === 'portfolio' && (
+              About & Research
+              {currentPage === 'about-research' && (
                 <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C0392B] via-[#D96B27] to-[#E5A124]" />
               )}
             </button>
+
             <button 
-              onClick={() => {
-                setCurrentPage('research');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 cursor-pointer ${currentPage === 'research' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
+              onClick={() => switchPage('publications-biography')}
+              className={`transition-all py-1 relative cursor-pointer ${currentPage === 'publications-biography' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
             >
-              Research Interests
-              {currentPage === 'research' && (
+              Publications & Biography
+              {currentPage === 'publications-biography' && (
                 <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C0392B] via-[#D96B27] to-[#E5A124]" />
               )}
             </button>
-            <button 
-              onClick={() => {
-                setCurrentPage('about');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className={`text-xs font-bold uppercase tracking-widest transition-all relative py-1 cursor-pointer ${currentPage === 'about' ? 'text-[#C0392B] font-extrabold' : 'text-[#2A1A12]/60 hover:text-[#2A1A12]'}`}
+
+            <a 
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-1 rounded-full border border-amber-900/20 bg-amber-100/60 hover:bg-amber-200/80 text-amber-950 transition-colors hidden sm:inline-flex items-center gap-1.5"
             >
-              About Me
-              {currentPage === 'about' && (
-                <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C0392B] via-[#D96B27] to-[#E5A124]" />
-              )}
-            </button>
+              <FileText size={12} />
+              <span>CV</span>
+            </a>
           </nav>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 pt-8 md:pt-12 pb-24 flex-1 w-full relative z-20">
+      {/* Main Content Area */}
+      <main className="max-w-4xl mx-auto px-6 pt-10 md:pt-14 pb-24 flex-1 w-full relative z-20">
         <AnimatePresence mode="wait">
-          {currentPage === 'portfolio' ? (
+          {currentPage === 'about-research' ? (
+            /* PAGE 1: About & Research */
             <motion.div
-              key="portfolio-page"
-              initial={{ opacity: 0, y: 15 }}
+              key="about-research-page"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="space-y-24 md:space-y-28"
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="space-y-16 md:space-y-24"
             >
-              {/* Hero / Cover Section - Bright, Crisp & Exceptionally Easy to Read */}
-              <section id="about" className="relative pt-4 sm:pt-6">
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="flex flex-col lg:flex-row gap-12 lg:gap-14 items-center lg:items-start justify-between"
-                >
-                  <div className="flex-1 z-10">
-                    <p className="text-xl md:text-2xl text-[#3A261C] max-w-xl leading-relaxed mb-10 font-normal">
-                      I am a <span className="font-semibold text-[#1F110B]">Graduate Research Assistant</span> at Northeastern University, working at the intersection of <span className="font-semibold text-[#1F110B] underline decoration-amber-400/80 decoration-2 underline-offset-4">machine learning systems, statistics, and causal inference.</span> Currently pursuing my M.S. in Statistics (Biostatistics), I design computational frameworks and conduct statistical modeling to solve complex challenges in public health, public policy, and economics.
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-5 items-center mb-8">
+              {/* Section: About / Overview */}
+              <section className="relative pt-2">
+                <div className="flex flex-col-reverse md:flex-row gap-10 md:gap-12 items-center md:items-start justify-between">
+                  <div className="flex-1 space-y-6">
+                    <div>
+                      <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#1F110B] tracking-tight mb-2">
+                        Ethan Go
+                      </h1>
+                      <p className="text-base sm:text-lg text-[#C0392B] font-semibold tracking-wide">
+                        Graduate Research Assistant · Biostatistics
+                      </p>
+                      <p className="text-sm text-[#6E5343] font-medium">
+                        Bouvé College of Health Sciences · Northeastern University
+                      </p>
+                    </div>
+
+                    {/* Academic Profiles & Contact Icons Row */}
+                    <div className="flex flex-wrap gap-2.5 items-center pt-1">
+                      <a 
+                        href="https://scholar.google.com/citations?user=Otcng6AAAAAJ&hl=en" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Google Scholar Profile"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-amber-900/15 bg-white/80 hover:bg-red-50 hover:text-red-700 hover:border-red-400 rounded-full text-xs font-semibold text-[#2A1A12] transition-all shadow-2xs"
+                      >
+                        <ScholarIcon size={15} />
+                        <span>Google Scholar</span>
+                      </a>
+
+                      <a 
+                        href="https://orcid.org/0009-0007-5380-5311" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="ORCID: 0009-0007-5380-5311"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-amber-900/15 bg-white/80 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400 rounded-full text-xs font-semibold text-[#2A1A12] transition-all shadow-2xs"
+                      >
+                        <OrcidIcon size={15} className="text-[#A6CE39]" />
+                        <span>ORCID</span>
+                      </a>
+
+                      <a 
+                        href="https://github.com/EthanTGo" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="GitHub: EthanTGo"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-amber-900/15 bg-white/80 hover:bg-amber-50 hover:text-[#2A1A12] hover:border-amber-400 rounded-full text-xs font-semibold text-[#2A1A12] transition-all shadow-2xs"
+                      >
+                        <Github size={15} />
+                        <span>GitHub</span>
+                      </a>
+
+                      <a 
+                        href="https://www.linkedin.com/in/ethanthego/" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="LinkedIn Profile"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-amber-900/15 bg-white/80 hover:bg-orange-50 hover:text-orange-700 hover:border-orange-400 rounded-full text-xs font-semibold text-[#2A1A12] transition-all shadow-2xs"
+                      >
+                        <Linkedin size={15} />
+                        <span>LinkedIn</span>
+                      </a>
+
                       <a 
                         href="mailto:ethango1997@gmail.com" 
-                        className="group relative px-8 py-4 bg-gradient-to-r from-[#2A1A12] to-[#452316] hover:from-[#C0392B] hover:to-[#D96B27] text-[#FCFAF6] rounded-full text-xs font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 shadow-md shadow-orange-950/10 hover:pr-12"
+                        title="Email: ethango1997@gmail.com"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-amber-900/15 bg-white/80 hover:bg-red-50 hover:text-red-700 hover:border-red-400 rounded-full text-xs font-semibold text-[#2A1A12] transition-all shadow-2xs"
                       >
-                        <span className="relative z-10">Get in touch</span>
-                        <Mail className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all text-white" size={16} />
+                        <Mail size={15} />
+                        <span>Email</span>
                       </a>
-                      <div className="flex gap-3">
+
+                      <a 
+                        href={`${import.meta.env.BASE_URL}resume.pdf`} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Curriculum Vitae (PDF)"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-amber-900/20 bg-amber-100/70 hover:bg-amber-200 hover:text-red-950 rounded-full text-xs font-bold text-amber-950 transition-all shadow-2xs"
+                      >
+                        <FileText size={15} />
+                        <span>CV</span>
+                      </a>
+                    </div>
+
+                    {/* Bio Narrative */}
+                    <div className="space-y-4 text-base sm:text-lg text-[#3D281E] font-normal leading-relaxed pt-2 text-justify">
+                      <p>
+                        I am a <strong className="font-semibold text-[#1F110B]">Graduate Research Assistant</strong> in the Bouvé College of Health Sciences at Northeastern University, supervised by Professor Matthew Miller and Professor Louisa Smith. My research focuses on causal inference, synthetic control methods, and missing data in evaluations of firearm violence policy in epidemiology and public health. I am pursuing an M.S. in Statistics with a concentration in Biostatistics (expected May 2027).
+                      </p>
+                      <p>
+                        Previously, I was a Software Engineer at Bloomreach on the search quality team working on distributed semantic search systems. I completed my M.S. in Applied Data Analytics and B.A. in Computer Science (minor in Economics) at Boston University.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Profile Portrait */}
+                  <div className="shrink-0 relative">
+                    <div className="relative group">
+                      <div className="absolute -inset-2.5 bg-amber-900/10 rounded-[2.2rem] rotate-1 -z-10 border border-amber-900/15" />
+                      <ProfileImage className="w-52 h-68 sm:w-60 sm:h-76 md:w-64 md:h-80 border-4 border-white shadow-lg shadow-amber-950/10 transition-all duration-300" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Section: Research Interests (Clean typography, no leaf icon) */}
+              <section className="space-y-8 pt-4">
+                <div className="space-y-3 pb-3 border-b border-amber-900/10">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F110B]">
+                    Research Interests
+                  </h2>
+                </div>
+
+                <div className="space-y-8 text-[#3D281E] leading-relaxed">
+                  {/* Area 1 */}
+                  <div className="space-y-2">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1F110B]">
+                      Causal Inference in settings where assumptions are violated
+                    </h3>
+                    <p className="text-base sm:text-lg leading-relaxed text-[#3D281E] text-justify">
+                      My main research interest is working with areas of causal inference in which standard identification assumptions may be violated. I study sensitivity analysis, algorithmic valuation uncertainty, and how model variance propagates into policy and economic simulations.
+                    </p>
+                  </div>
+
+                  {/* Area 2 */}
+                  <div className="space-y-2 pt-2">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1F110B]">
+                      Managing and Solutions to Missing Data
+                    </h3>
+                    <p className="text-base sm:text-lg leading-relaxed text-[#3D281E] text-justify">
+                      Investigating statistical methodologies, imputation strategies, and robust estimators to handle complex missing data mechanisms in observational and longitudinal biomedical studies.
+                    </p>
+                  </div>
+
+                  {/* Area 3 */}
+                  <div className="space-y-2 pt-2">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1F110B]">
+                      Other Methodological & Applied Interests
+                    </h3>
+                    <p className="text-base sm:text-lg leading-relaxed text-[#3D281E] text-justify">
+                      Longitudinal data analysis, survival analysis, causal machine learning, and mediation analysis applied to public health, clinical informatics, and policy evaluations.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Prompt to view Publications & Biography */}
+                <div className="pt-8">
+                  <button
+                    onClick={() => switchPage('publications-biography')}
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C0392B] hover:text-[#D96B27] transition-colors cursor-pointer group"
+                  >
+                    <span>View Publications & Biography</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </button>
+                </div>
+              </section>
+            </motion.div>
+          ) : (
+            /* PAGE 2: Publications & Biography + Dedicated Projects Section */
+            <motion.div
+              key="publications-biography-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="space-y-16 md:space-y-24"
+            >
+              {/* Section 1: Publications & Pre-prints (Clean academic citation list) */}
+              <section className="space-y-8">
+                <div className="space-y-2 pb-3 border-b border-amber-900/10">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F110B]">
+                    Publications & Pre-prints
+                  </h2>
+                </div>
+
+                <div className="space-y-8 divide-y divide-amber-900/10">
+                  {PUBLICATIONS.map((pub, idx) => (
+                    <div 
+                      key={pub.title}
+                      className={idx > 0 ? "pt-6 space-y-2 text-[#3D281E]" : "space-y-2 text-[#3D281E]"}
+                    >
+                      <div className="text-base sm:text-lg leading-relaxed text-[#1F110B]">
+                        <span className="font-serif font-bold text-[#C0392B] mr-2">[{idx + 1}]</span>
+                        {pub.authorsPrefix && <span>{pub.authorsPrefix}</span>}
+                        <strong className="font-bold text-[#1F110B]">{pub.boldName}</strong>
+                        {pub.authorsSuffix && <span>{pub.authorsSuffix}</span>}
+                        <span>. </span>
+                        <span className="font-medium text-[#1F110B]">"{pub.title}."</span>{" "}
+                        <span className="italic text-[#6E5343]">{pub.venue}</span> ({pub.year}).
+                      </div>
+
+                      <p className="text-sm text-[#5C4033] leading-relaxed pl-6 max-w-3xl">
+                        {pub.abstract}
+                      </p>
+
+                      <div className="pl-6 pt-0.5">
                         <a 
-                          href="https://github.com/EthanTGo" 
+                          href={pub.link} 
                           target="_blank"
                           rel="noopener noreferrer"
-                          title="GitHub Profile"
-                          className="p-3.5 border border-amber-900/15 bg-white/70 rounded-full text-[#2A1A12] hover:bg-red-50 hover:text-red-700 hover:border-red-400 transition-all shadow-2xs"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#C0392B] hover:text-[#D96B27] underline decoration-amber-300 underline-offset-3 transition-colors"
                         >
-                          <Github size={20} />
-                        </a>
-                        <a 
-                          href="https://www.linkedin.com/in/ethanthego/" 
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="LinkedIn Profile"
-                          className="p-3.5 border border-amber-900/15 bg-white/70 rounded-full text-[#2A1A12] hover:bg-orange-50 hover:text-orange-700 hover:border-orange-400 transition-all shadow-2xs"
-                        >
-                          <Linkedin size={20} />
+                          <span>[{pub.linkText}]</span>
+                          <ExternalLink size={12} />
                         </a>
                       </div>
                     </div>
-
-                    {/* Autumn feature highlight note & link to Research Interests */}
-                    <button
-                      onClick={() => {
-                        setCurrentPage('research');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                      className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-amber-50/80 hover:bg-amber-100/90 border border-amber-200/70 hover:border-amber-400 text-xs text-[#5C3D2E] transition-all cursor-pointer group text-left shadow-2xs"
-                    >
-                      <span className="p-1 rounded-full bg-red-100 text-[#C0392B] group-hover:rotate-12 transition-transform">
-                        <MapleLeafIcon size={12} color="#C0392B" />
-                      </span>
-                      <span>Explore my core <strong className="font-bold text-[#1F110B] underline decoration-amber-400">Research Interests</strong> & causal inference agenda →</span>
-                    </button>
-                  </div>
-
-                  {/* Profile Portrait Framed by Background Autumn Foliage & Hanko Stamp */}
-                  <div className="shrink-0 relative z-10">
-                    <div className="relative group">
-                      <div className="absolute -inset-3 bg-red-600/15 rounded-[2.5rem] rotate-4 -z-10 border border-red-500/20" />
-                      <div className="absolute -inset-3 bg-orange-500/15 rounded-[2.5rem] -rotate-3 -z-10 border border-orange-500/20" />
-                      <div className="absolute -inset-1.5 bg-amber-400/20 rounded-[2.2rem] rotate-1 -z-10 border border-amber-400/30" />
-                      <ProfileImage className="w-56 h-72 sm:w-64 sm:h-80 md:w-72 md:h-92 border-6 border-white shadow-2xl shadow-amber-950/15 transition-all duration-300" />
-                    </div>
-                  </div>
-                </motion.div>
-              </section>
-
-              {/* Past Works Section */}
-              <section id="work" className="mb-32">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-14">
-                  <div className="flex items-center gap-3">
-                    <MapleLeafIcon size={28} color="#C0392B" className="shrink-0" />
-                    <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#1F110B]">Past Works</h2>
-                  </div>
-
-                  {/* Filter tabs styled with warm autumn accents */}
-                  <div className="flex gap-2 p-1.5 bg-amber-950/5 border border-amber-900/10 rounded-full w-fit">
-                    <button 
-                      onClick={() => setActiveTab('research')}
-                      className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all cursor-pointer ${activeTab === 'research' ? 'bg-white text-red-900 border border-amber-200/80 shadow-xs' : 'text-[#6E5343] hover:text-[#2A1A12]'}`}
-                    >
-                      Research
-                    </button>
-                    <button 
-                      onClick={() => setActiveTab('projects')}
-                      className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all cursor-pointer ${activeTab === 'projects' ? 'bg-white text-orange-900 border border-amber-200/80 shadow-xs' : 'text-[#6E5343] hover:text-[#2A1A12]'}`}
-                    >
-                      Projects
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid gap-12">
-                  {activeTab === 'research' ? (
-                    RESEARCH.map((paper, idx) => (
-                      <motion.div 
-                        key={paper.title}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="group grid md:grid-cols-[1fr_auto] gap-8 p-8 md:p-10 rounded-[2rem] bg-white/80 backdrop-blur-sm border border-amber-900/10 hover:border-amber-400/50 hover:bg-white hover:shadow-xl hover:shadow-amber-950/5 transition-all duration-300"
-                      >
-                        <div>
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold tracking-widest text-[#C0392B] bg-red-100/70 px-2.5 py-0.5 rounded-full">{paper.year}</span>
-                            <div className="h-1 w-1 rounded-full bg-amber-900/30" />
-                            <span className="text-xs font-medium italic text-[#6E5343]">{paper.venue}</span>
-                          </div>
-                          <h3 className="text-2xl font-serif font-bold mb-3 text-[#1F110B] group-hover:text-[#C0392B] transition-colors leading-snug">
-                            {paper.title}
-                          </h3>
-                          <p className="text-sm text-[#6E5343] mb-6 italic">{paper.authors}</p>
-                          <p className="text-[#3A261C] leading-relaxed mb-8 font-normal">
-                            {paper.abstract}
-                          </p>
-                          <div className="flex gap-6">
-                            {paper.link && (
-                              <a 
-                                href={paper.link} 
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#2A1A12] hover:text-[#C0392B] transition-colors"
-                              >
-                                View Publication <ExternalLink size={14} />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))
-                  ) : (
-                    <div className="grid md:grid-cols-2 gap-12">
-                      {PROJECTS.map((project, idx) => (
-                        <motion.div 
-                          key={project.title}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: idx * 0.1 }}
-                          className="group bg-white/80 backdrop-blur-sm p-6 rounded-[2rem] border border-amber-900/10 hover:border-amber-400/50 hover:bg-white hover:shadow-xl hover:shadow-amber-950/5 transition-all"
-                        >
-                          <div className="aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-amber-50/50 border border-amber-900/10 shadow-sm relative">
-                            <img 
-                              src={project.image} 
-                              alt={project.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                              referrerPolicy="no-referrer"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                          </div>
-                          <h3 className="text-xl font-serif font-bold mb-3 text-[#1F110B] group-hover:text-[#D96B27] transition-colors">{project.title}</h3>
-                          <p className="text-[#3A261C] mb-6 leading-relaxed font-normal">
-                            {project.description}
-                          </p>
-                          {/* Tags in autumn red, orange, yellow, amber */}
-                          <div className="flex flex-wrap gap-2 mb-6">
-                            {project.tags.map((tag, tagIdx) => (
-                              <span 
-                                key={tag} 
-                                className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full ${TAG_FALL_STYLES[tagIdx % TAG_FALL_STYLES.length]}`}
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                          <div className="flex gap-4">
-                            {project.github && (
-                              <a 
-                                href={project.github} 
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#2A1A12]/40 hover:text-[#C0392B] transition-colors"
-                              >
-                                <Github size={20} />
-                              </a>
-                            )}
-                            {project.link && (
-                              <a 
-                                href={project.link} 
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#2A1A12]/40 hover:text-[#D96B27] transition-colors"
-                              >
-                                <Globe size={20} />
-                              </a>
-                            )}
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
+                  ))}
                 </div>
               </section>
 
-              {/* Education & Experience Section with Autumn Dividers */}
-              <section className="mb-32">
-                <div className="grid md:grid-cols-2 gap-16">
+              {/* Section 2: Biography (Education & Experience from CV) */}
+              <section className="space-y-12">
+                <div className="space-y-3 pb-3 border-b border-amber-900/10">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F110B]">
+                    Biography
+                  </h2>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-12 lg:gap-14">
                   {/* Education Column */}
-                  <div>
-                    <div className="flex items-center gap-4 mb-12">
-                      <OakLeafIcon size={22} color="#D96B27" className="shrink-0" />
-                      <h2 className="font-serif text-3xl font-bold text-[#1F110B]">Education</h2>
-                      <div className="h-px flex-1 bg-gradient-to-r from-orange-500/40 via-amber-400/30 to-transparent" />
-                    </div>
+                  <div className="space-y-8">
+                    <h3 className="font-serif text-xl font-bold text-[#1F110B] pb-2 border-b border-amber-900/10">
+                      Education
+                    </h3>
                     
-                    <div className="flex flex-col gap-10">
-                      <div className="flex gap-6 group">
+                    <div className="flex flex-col gap-8">
+                      {/* Northeastern */}
+                      <div className="flex gap-4 group">
                         <LogoImage 
                           srcs={[
                             '/src/northeastern_logo.png', 
                             '/src/northeastern_logo.jpg', 
                             '/src/northeastern_logo.jpeg', 
-                            '/src/logo.png', 
-                            '/src/logo.jpg', 
-                            '/src/logo.jpeg', 
-                            '/northeastern_logo.png', 
-                            '/logo.png', 
-                            '/logo.jpg', 
-                            '/logo.jpeg'
+                            '/northeastern_logo.png'
                           ]} 
-                          alt="Northeastern University Logo" 
+                          alt="Northeastern University" 
                           fallbackType="northeastern" 
                         />
-                        <div>
-                          <h4 className="font-serif text-xl font-bold mb-1 text-[#1F110B] group-hover:text-red-700 transition-colors">M.S. in Statistics</h4>
-                          <p className="text-sm text-[#5C4033] mb-1 font-medium">Northeastern University · 2025 — Current</p>
-                          <p className="text-sm text-[#8C6D5B] font-light italic">Specialization in Biostatistics</p>
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-red-700 transition-colors">
+                            M.S. in Statistics (Biostatistics)
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Northeastern University · May 2027 (Expected)
+                          </p>
+                          <p className="text-xs text-[#8C6D5B] font-light">
+                            Cumulative GPA: 4.0 · Bouvé College of Health Sciences
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed pt-1">
+                            <span className="font-medium">Relevant Coursework:</span> Real Analysis 1, Causal Inference 1 & 2, Advanced Methods in Biostatistics, Generalized Linear Models, Stochastic Processes, Statistical Learning.
+                          </p>
                         </div>
                       </div>
                       
-                      <div className="flex gap-6 group">
+                      {/* BU MS */}
+                      <div className="flex gap-4 group">
                         <LogoImage 
                           srcs={[
                             '/src/bu.jpeg', 
                             '/src/bu.jpg', 
                             '/src/bu.png', 
-                            '/bu.jpeg', 
-                            '/bu.jpg', 
-                            '/bu.png'
+                            '/bu.jpeg'
                           ]} 
-                          alt="Boston University Logo" 
+                          alt="Boston University" 
                           fallbackType="bu" 
                         />
-                        <div>
-                          <h4 className="font-serif text-xl font-bold mb-1 text-[#1F110B] group-hover:text-red-700 transition-colors">M.S. in Data Analytics</h4>
-                          <p className="text-sm text-[#5C4033] mb-1 font-medium">Boston University · 2020 — 2022</p>
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-red-700 transition-colors">
+                            M.S. in Applied Data Analytics
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Boston University · May 2022
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed pt-1">
+                            <span className="font-medium">Coursework:</span> Machine Learning, Deep Learning, Big Data Management.
+                          </p>
                         </div>
                       </div>
 
-                      <div className="flex gap-6 group">
+                      {/* BU BA */}
+                      <div className="flex gap-4 group">
                         <LogoImage 
                           srcs={[
                             '/src/bu.jpeg', 
                             '/src/bu.jpg', 
                             '/src/bu.png', 
-                            '/bu.jpeg', 
-                            '/bu.jpg', 
-                            '/bu.png'
+                            '/bu.jpeg'
                           ]} 
-                          alt="Boston University Logo" 
+                          alt="Boston University" 
                           fallbackType="bu" 
                         />
-                        <div>
-                          <h4 className="font-serif text-xl font-bold mb-1 text-[#1F110B] group-hover:text-red-700 transition-colors">B.A. in Computer Science</h4>
-                          <p className="text-sm text-[#5C4033] mb-1 font-medium">Boston University · 2017 — 2020</p>
-                          <p className="text-sm text-[#8C6D5B] font-light italic">Minor in Economics</p>
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-red-700 transition-colors">
+                            B.A. in Computer Science
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Boston University · May 2020
+                          </p>
+                          <p className="text-xs text-[#8C6D5B] font-light">
+                            Computer Science Major · Economics Minor
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed pt-1">
+                            <span className="font-medium">Coursework:</span> Linear Algebra, Multivariable Calculus, Statistics in CS, Econometrics.
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Experience Column */}
-                  <div>
-                    <div className="flex items-center gap-4 mb-12">
-                      <GinkgoLeafIcon size={22} color="#E5A124" className="shrink-0" />
-                      <h2 className="font-serif text-3xl font-bold text-[#1F110B]">Experience</h2>
-                      <div className="h-px flex-1 bg-gradient-to-r from-amber-500/40 via-red-400/30 to-transparent" />
-                    </div>
+                  <div className="space-y-8">
+                    <h3 className="font-serif text-xl font-bold text-[#1F110B] pb-2 border-b border-amber-900/10">
+                      Experience
+                    </h3>
 
-                    <div className="flex flex-col gap-10">
-                      <div className="flex gap-6 group">
+                    <div className="flex flex-col gap-8">
+                      {/* NEU Research Assistant */}
+                      <div className="flex gap-4 group">
+                        <LogoImage 
+                          srcs={[
+                            '/src/northeastern_logo.png', 
+                            '/src/northeastern_logo.jpg', 
+                            '/northeastern_logo.png'
+                          ]} 
+                          alt="Northeastern University" 
+                          fallbackType="northeastern" 
+                        />
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-red-700 transition-colors">
+                            Research Assistant
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Northeastern University · Nov 2025 — Present
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed">
+                            Evaluating applications of the Synthetic Control Method (SCM) to firearm policy evaluation; synthesizing SCM and difference-in-differences (DID) frameworks.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Biostatistics Research Center */}
+                      <div className="flex gap-4 group">
+                        <LogoImage 
+                          srcs={[
+                            '/src/northeastern_logo.png', 
+                            '/src/northeastern_logo.jpg', 
+                            '/northeastern_logo.png'
+                          ]} 
+                          alt="Biostatistics Research Center" 
+                          fallbackType="northeastern" 
+                        />
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-red-700 transition-colors">
+                            Biostatistician
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Biostatistics Research Center · Oct 2025 — Present
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed">
+                            Analyzed longitudinal survey data from the NIA-funded PREHCO aging cohort; developing biostatistics tutorial materials on causal DAGs and R.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bloomreach */}
+                      <div className="flex gap-4 group">
                         <LogoImage 
                           srcs={[
                             '/src/bloomreach_logo.png', 
                             '/src/bloomreach_logo.jpg', 
                             '/src/bloomreach_logo.jpeg', 
-                            '/bloomreach_logo.png', 
-                            '/bloomreach_logo.jpg', 
-                            '/bloomreach_logo.jpeg'
+                            '/bloomreach_logo.png'
                           ]} 
-                          alt="Bloomreach Logo" 
+                          alt="Bloomreach" 
                           fallbackType="bloomreach" 
                         />
-                        <div>
-                          <h4 className="font-serif text-xl font-bold mb-1 text-[#1F110B] group-hover:text-orange-700 transition-colors">Software Engineering</h4>
-                          <p className="text-sm text-[#5C4033] mb-1 font-medium">Bloomreach · 2022 - 2025</p>
-                          <p className="text-sm text-[#8C6D5B] font-light italic">Search Quality Team</p>
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-orange-700 transition-colors">
+                            Software Engineer
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Bloomreach · July 2022 — May 2025
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed">
+                            Search Quality Team. Evaluated LLM architectures for semantic search with Apache SOLR; refactored Spark & Kafka streaming pipelines.
+                          </p>
                         </div>
                       </div>
 
-                      <div className="flex gap-6 group">
+                      {/* Telenav */}
+                      <div className="flex gap-4 group">
                         <LogoImage 
                           srcs={[
                             '/src/telenav.jpeg', 
                             '/src/telenav.jpg', 
                             '/src/telenav.png', 
-                            '/telenav.jpeg', 
-                            '/telenav.jpg', 
-                            '/telenav.png'
+                            '/telenav.jpeg'
                           ]} 
-                          alt="Telenav Logo" 
+                          alt="Telenav" 
                           fallbackType="telenav" 
                         />
-                        <div>
-                          <h4 className="font-serif text-xl font-bold mb-1 text-[#1F110B] group-hover:text-amber-700 transition-colors">Data Science Intern</h4>
-                          <p className="text-sm text-[#5C4033] mb-1 font-medium">Telenav · Summer 2021</p>
-                          <p className="text-sm text-[#8C6D5B] font-light italic">Mobile App Development</p>
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-amber-700 transition-colors">
+                            Data Science Intern
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            Telenav · Summer 2021
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed">
+                            Modeled high-frequency accelerometer and gyroscope time series; built Python/SQL ETL telemetry pipelines on AWS S3.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* BUDS Lab NUS */}
+                      <div className="flex gap-4 group">
+                        <LogoImage 
+                          srcs={[
+                            `${import.meta.env.BASE_URL}buds_lab.svg`,
+                            '/buds_lab.svg'
+                          ]} 
+                          alt="BUDS Lab @ National University of Singapore" 
+                          fallbackType="buds" 
+                        />
+                        <div className="space-y-1">
+                          <h4 className="font-serif text-base font-bold text-[#1F110B] group-hover:text-[#F37021] transition-colors">
+                            Data Science Intern
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#5C4033] font-medium">
+                            BUDS Lab @ National University of Singapore · Summer 2020
+                          </p>
+                          <p className="text-xs text-[#7A5B47] leading-relaxed">
+                            Conducted data analytics and modeled energy and electricity consumption within environmentally friendly building architectures.
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </section>
+
+              {/* Section 3: Dedicated Projects Section (Separated from Biography) */}
+              <section className="space-y-8">
+                <div className="space-y-3 pb-3 border-b border-amber-900/10">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F110B]">
+                    Featured Projects
+                  </h2>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {/* Collab^2 Project */}
+                  <div className="p-6 rounded-2xl bg-white/70 border border-amber-900/10 space-y-3 hover:border-amber-400/50 hover:bg-white hover:shadow-md transition-all">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-serif text-lg font-bold text-[#1F110B]">
+                        Collab²
+                      </h3>
+                      <a 
+                        href="https://github.com/EthanTGo/Collab2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C0392B] hover:text-[#D96B27] transition-colors"
+                      >
+                        <Github size={14} />
+                        <span>Source</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    </div>
+                    <p className="text-sm text-[#3D281E] leading-relaxed">
+                      A collaborative code-sharing platform allowing instructors and students to create or join real-time workspaces with instant syntax synchronization.
+                    </p>
+                    <div className="flex flex-wrap gap-2 pt-1 text-[11px] font-semibold text-[#6E5343]">
+                      <span>jQuery</span>
+                      <span>·</span>
+                      <span>Materialize</span>
+                      <span>·</span>
+                      <span>SQL</span>
+                      <span>·</span>
+                      <span>CodeMirror</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Prompt to return to About & Research */}
+                <div className="pt-8">
+                  <button
+                    onClick={() => switchPage('about-research')}
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C0392B] hover:text-[#D96B27] transition-colors cursor-pointer group"
+                  >
+                    <span>← Return to About & Research</span>
+                  </button>
+                </div>
+              </section>
             </motion.div>
-          ) : currentPage === 'research' ? (
-            <ResearchInterestsPage key="research-page" />
-          ) : (
-            <AboutPage key="about-page" />
           )}
         </AnimatePresence>
 
-        {/* Footer with Autumn Motif and Quick Navigation */}
-        <footer id="contact" className="pt-16 border-t border-amber-900/10 mt-32">
+        {/* Academic Footer (Clean typography, no leaf icons) */}
+        <footer className="pt-12 border-t border-amber-900/10 mt-24">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <MapleLeafIcon size={18} color="#C0392B" />
-              <p className="text-xs font-bold uppercase tracking-widest text-[#7D5B49]">
-                © 2026 Ethan Go · Autumn Edition
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-bold uppercase tracking-wider text-[#7D5B49]">
+            <p className="text-xs font-bold uppercase tracking-widest text-[#7D5B49]">
+              © 2026 Ethan Go · Bouvé College of Health Sciences, Northeastern University
+            </p>
+            
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold uppercase tracking-wider text-[#7D5B49]">
               <button 
-                onClick={() => {
-                  setCurrentPage('portfolio');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={`hover:text-[#C0392B] transition-colors cursor-pointer ${currentPage === 'portfolio' ? 'text-[#C0392B]' : ''}`}
+                onClick={() => switchPage('about-research')} 
+                className={`transition-colors cursor-pointer ${currentPage === 'about-research' ? 'text-[#C0392B]' : 'hover:text-[#C0392B]'}`}
               >
-                Portfolio
+                About & Research
               </button>
-              <span className="text-amber-300">·</span>
+              <span>·</span>
               <button 
-                onClick={() => {
-                  setCurrentPage('research');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={`hover:text-[#C0392B] transition-colors cursor-pointer ${currentPage === 'research' ? 'text-[#C0392B]' : ''}`}
+                onClick={() => switchPage('publications-biography')} 
+                className={`transition-colors cursor-pointer ${currentPage === 'publications-biography' ? 'text-[#C0392B]' : 'hover:text-[#C0392B]'}`}
               >
-                Research Interests
+                Publications & Biography
               </button>
-              <span className="text-amber-300">·</span>
-              <button 
-                onClick={() => {
-                  setCurrentPage('about');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={`hover:text-[#C0392B] transition-colors cursor-pointer ${currentPage === 'about' ? 'text-[#C0392B]' : ''}`}
+              <span>·</span>
+              <a 
+                href={`${import.meta.env.BASE_URL}resume.pdf`} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#C0392B] transition-colors"
               >
-                About Me
-              </button>
+                CV
+              </a>
             </div>
           </div>
         </footer>
